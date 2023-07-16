@@ -1,0 +1,60 @@
+#addCon{
+  padding: 10px 20px;
+  background-color: #66bfff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 46.5%;
+  margin-top: 5%;
+}
+p {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.mat-table-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+#addCon {
+  display: block;
+  margin: 20px auto;
+}
+.avatar-container {
+  position: relative;
+  margin-top: 5%;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5%;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.default-avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 20px;
+}

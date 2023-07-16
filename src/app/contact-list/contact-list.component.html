@@ -1,0 +1,55 @@
+<p *ngIf="contacts.length == 0" style="text-align: center; margin-top: 5%;">No contacts added yet</p>
+
+<div class="mat-table-wrapper" *ngIf="contacts.length != 0">
+  <table mat-table [dataSource]="contacts" class="mat-table">
+    <!-- Columns definition -->
+    <ng-container matColumnDef="avatar">
+      <th mat-header-cell *matHeaderCellDef>Avatar</th>
+      <td mat-cell *matCellDef="let contact">
+        <div class="avatar-container">
+          <img *ngIf="contact.avatar" [src]="contact.avatar" alt="Avatar" class="avatar-image">
+          <div *ngIf="!contact.avatar" class="default-avatar">{{ contact.username[0] }}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef>Full Name</th>
+      <td mat-cell *matCellDef="let contact">{{ contact.fullName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let contact">{{ contact.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let contact">{{ contact.phone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>Username</th>
+      <td mat-cell *matCellDef="let contact">{{ contact.username }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let contact">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editContact(contact)">Edit</button>
+          <button mat-menu-item (click)="deleteContact(contact)">Delete</button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <!-- Table rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let contact; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<button id="addCon" mat-raised-button (click)="addContact()">Add Contact</button>
