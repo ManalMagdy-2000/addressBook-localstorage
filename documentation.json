@@ -1180,13 +1180,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-f42fbf2c06712767163fc3e5cc5125818a3dcbd9e3d96612f94cf115f7a4b92f442ced48a668bc4ee187bd76b9d68ce9ec46f3b2d2257beba5d8de7aae478e41",
+            "id": "module-AppModule-5384e0b3ef811b5a3b64f66f03d40b9a496cc9927c75be76b79462d319e548d58bc8820883a80ecc93eed745818e7119ccdbdeb4d4aacbfc1839755a81986c02",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\nimport { FormsModule } from '@angular/forms';\nimport { RouterModule, Routes } from '@angular/router';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatMenuModule } from '@angular/material/menu';\nimport { MatDialogModule } from '@angular/material/dialog';\nimport { MatTableModule } from '@angular/material/table';\n\nimport { AppComponent } from './app.component';\nimport { ContactListComponent } from './contact-list/contact-list.component';\nimport { ContactFormComponent } from './contact-form/contact-form.component';\nimport { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';\nimport { ContactUpdateComponent } from './contact-update/contact-update.component';\nimport { MatToolbarModule } from '@angular/material/toolbar';\n\nconst appRoutes: Routes = [\n  { path: 'list', component: ContactListComponent },\n  { path: 'add', component: ContactFormComponent },\n  { path: 'edit/:username', component: ContactUpdateComponent},\n  { path: '', redirectTo: '/list', pathMatch: 'full' }\n];\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    ContactListComponent,\n    ContactFormComponent,\n    ConfirmationDialogComponent\n  ],\n  imports: [\n    BrowserModule,\n    BrowserAnimationsModule,\n    FormsModule,\n    MatButtonModule,\n    MatInputModule,\n    MatFormFieldModule,\n    MatIconModule,\n    MatMenuModule,\n    MatDialogModule,\n    MatToolbarModule ,\n    MatTableModule,\n\n    RouterModule.forRoot(appRoutes)\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\nimport { FormsModule } from '@angular/forms';\nimport { RouterModule, Routes } from '@angular/router';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatMenuModule } from '@angular/material/menu';\nimport { MatDialogModule } from '@angular/material/dialog';\nimport { MatTableModule } from '@angular/material/table';\n\n\nimport { AppComponent } from './app.component';\nimport { ContactListComponent } from './contact-list/contact-list.component';\nimport { ContactFormComponent } from './contact-form/contact-form.component';\nimport { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';\nimport { ContactUpdateComponent } from './contact-update/contact-update.component';\nimport { MatToolbarModule } from '@angular/material/toolbar';\n\nconst appRoutes: Routes = [\n  { path: 'list', component: ContactListComponent },\n  { path: 'add', component: ContactFormComponent },\n  { path: 'edit/:username', component: ContactUpdateComponent},\n  { path: '', redirectTo: '/list', pathMatch: 'full' }\n];\n\n@NgModule({\n  declarations: [\n    AppComponent,\n    ContactListComponent,\n    ContactFormComponent,\n    ConfirmationDialogComponent\n  ],\n  imports: [\n    BrowserModule,\n    BrowserAnimationsModule,\n    FormsModule,\n    MatButtonModule,\n    MatInputModule,\n    MatFormFieldModule,\n    MatIconModule,\n    MatMenuModule,\n    MatDialogModule,\n    MatToolbarModule ,\n    MatTableModule,\n\n    RouterModule.forRoot(appRoutes)\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
             "children": [
                 {
                     "type": "providers",
@@ -1270,6 +1270,46 @@
     ],
     "miscellaneous": {
         "variables": [
+            {
+                "name": "AddContact",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/contact-form.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/contact-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "EditContact",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/contact-form.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "EmptyList",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/contact-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
             {
                 "name": "Large",
                 "ctype": "miscellaneous",
@@ -1389,6 +1429,26 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/contact-form.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<ContactFormComponent>",
+                "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args,\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/contact-list.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<ContactListComponent>",
+                "defaultValue": "(args) => ({\r\n  component: ContactListComponent,\r\n  props: args,\r\n})"
             }
         ],
         "functions": [],
@@ -1429,6 +1489,70 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "src/stories/contact-form.stories.ts": [
+                {
+                    "name": "AddContact",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/contact-form.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "EditContact",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/contact-form.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/contact-form.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<ContactFormComponent>",
+                    "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args,\r\n})"
+                }
+            ],
+            "src/stories/contact-list.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/contact-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "EmptyList",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/contact-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/contact-list.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<ContactListComponent>",
+                    "defaultValue": "(args) => ({\r\n  component: ContactListComponent,\r\n  props: args,\r\n})"
+                }
+            ],
             "src/stories/Button.stories.ts": [
                 {
                     "name": "Large",
@@ -1625,7 +1749,7 @@
         ]
     },
     "coverage": {
-        "count": 3,
+        "count": 2,
         "status": "low",
         "files": [
             {
@@ -1828,6 +1952,66 @@
                 "coveragePercent": 83,
                 "coverageCount": "5/6",
                 "status": "very-good"
+            },
+            {
+                "filePath": "src/stories/contact-form.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AddContact",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/contact-form.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "EditContact",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/contact-form.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/contact-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/contact-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "EmptyList",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/contact-list.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
             },
             {
                 "filePath": "src/stories/header.component.ts",
