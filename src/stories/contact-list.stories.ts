@@ -49,10 +49,15 @@ const Template: StoryFn<ContactListComponent> = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  contacts: AddContact.args.contact ? [AddContact.args.contact] : [], // Use the contact from AddContact story if available
+  contacts: AddContact.args.contact ? [AddContact.args.contact] : [],
 };
-
 export const EmptyList = Template.bind({});
 EmptyList.args = {
-  contacts: [],
+  contacts: {
+    fullName : '' ,
+    username : '' ,
+    phone : '' ,
+    email : '' ,
+    avatar : ''
+  },
 };

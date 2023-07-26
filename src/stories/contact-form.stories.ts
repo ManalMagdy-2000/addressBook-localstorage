@@ -48,6 +48,7 @@ export default {
 const Template: StoryFn<ContactFormComponent> = (args) => ({
   component: ContactFormComponent,
   props: args,
+
 });
 
 export const AddContact = Template.bind({});
@@ -57,7 +58,7 @@ AddContact.args = {
     phone: '',
     email: '',
     fullName: '',
-    username: ''
+    username: '' ,
   },
   isEdit: false,
 };
@@ -73,6 +74,6 @@ export const EditContact = Template.bind({});
 EditContact.args = {};
 EditContact.argTypes = {
   isEdit: {
-    control: { disable: true },
+    control: { disable: false },
   },
 };

@@ -28,7 +28,7 @@ export class ContactListComponent implements OnInit {
   editContact(contact: Contact) {
     const dialogRef = this.dialog.open(ContactFormComponent, {
       data: {
-        contact: { ...contact }, // Make a copy of the contact
+        contact: { ...contact },
         isEdit: true
       }
     });
