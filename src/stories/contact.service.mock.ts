@@ -1,10 +1,16 @@
-// contact-service-mock.ts
-
+import { Injectable } from '@angular/core';
 import { Contact } from 'src/app/models/contact';
 
-// Mock service for testing in Storybook
-export class ContactServiceMock {
-  contacts: Contact[] = [];
+@Injectable()
+export class MockContactService {
+  //here I replaced my local storage in actual service  to array of contacts
+  private contacts: Contact[] = [];
+  constructor() {
+    this.contacts = [
+      { username: 'JohnDoe', email: 'john@example.com', phone: '1234567890' , fullName :"Jone Doe" , avatar:''},
+      { username: 'JaneSmith', email: 'jane@example.com', phone: '9876543210' ,fullName :"Jane Doe" , avatar:'' },
+    ];
+  }
 
   getContacts(): Contact[] {
     return this.contacts;

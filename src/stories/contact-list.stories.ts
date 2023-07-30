@@ -1,71 +1,119 @@
-import { ContactFormComponent } from './../app/contact-form/contact-form.component';
-import { moduleMetadata, StoryFn, Meta } from '@storybook/angular';
-import { MatDialogModule } from '@angular/material/dialog';
+import { moduleMetadata } from '@storybook/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContactListComponent } from 'src/app/contact-list/contact-list.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { AddContact } from './contact-form.stories';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from 'src/app/confirmation-dialog/confirmation-dialog.component';
-import { ContactService } from 'src/app/services/contact.service';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { action } from '@storybook/addon-actions';
+
+import { ContactListComponent } from 'src/app/contact-list/contact-list.component';
+import { ContactService } from 'src/app/services/contact.service';
+import { MockContactService } from './contact.service.mock';
 
 export default {
-  title: 'Components/Contact List',
+  title: 'Contact List',
   component: ContactListComponent,
   decorators: [
     moduleMetadata({
+      declarations: [ContactListComponent],
       imports: [
+        BrowserAnimationsModule,
         MatDialogModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatTableModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        MatInputModule,
-        MatFormFieldModule,
         MatIconModule,
-        MatMenuModule,
+        MatButtonModule,
       ],
-      providers: [
-        { provide: MatDialog, useValue: {} },
-        { provide: ContactService, useClass: ContactService },
-      ],
+      providers: [{ provide: ContactService, useClass: MockContactService }], // Provide the mock service here
     }),
   ],
-  argTypes: {
-    onSubmit: { action: 'submit' },
-  },
-} as Meta;
-onSubmit: (event: any) => {
-  // This is a placeholder function for the onSubmit event
-  console.log('Form submitted:', event);
-}
-const Template: StoryFn<ContactListComponent> = (args) => ({
-  component: ContactListComponent,
-  props: args,
+};
+
+// Default story without any props
+export const Default = () => ({
+  template: `
+    <app-contact-list [contacts]="contacts"></app-contact-list>
+  `,
 });
 
-export const Default = Template.bind({});
-Default.args = {
-//  contacts: AddContact.args.contact ? [AddContact.args.contact] : [],
-};
-export const EmptyList = Template.bind({});
-EmptyList.args = {
-  contacts: {
-    fullName : '' ,
-    username : '' ,
-    phone : '' ,
-    email : '' ,
-    avatar : ''
+// Story with a list of contacts passed as props
+export const WithContacts = () => ({
+  template: `
+    <app-contact-list [contacts]="contacts"></app-contact-list>
+  `,
+  props: {
+    contacts: [
+      // Add some test contacts here to display in the list
+      {
+        fullName: 'John Doe',
+        email: 'john.doe@example.com',
+        phone: '1234567890',
+        username: 'johnny',
+      },
+      // Add more test contacts if needed
+    ],
   },
+});
+
+
+
+
+
+/*import { moduleMetadata } from '@storybook/angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { action } from '@storybook/addon-actions';
+
+import { ContactListComponent } from 'src/app/contact-list/contact-list.component';
+import { ContactService } from 'src/app/services/contact.service';
+import { MockContactService } from './contact.service.mock';
+
+export default {
+  title: 'Contact List',
+  component: ContactListComponent,
+  decorators: [
+    moduleMetadata({
+      declarations: [ContactListComponent],
+      imports: [
+        BrowserAnimationsModule,
+        MatDialogModule,
+        MatIconModule,
+        MatButtonModule,
+      ],
+      providers: [{ provide: ContactService}], // Provide the mock service here
+    }),
+  ],
 };
 
+export const Default = () => ({
+  component: ContactListComponent,
+  template: `
+    <app-contact-list></app-contact-list>
+  `,
+});
 
+export const EditContact = () => ({
+  component: ContactListComponent,
+  template: `
+    <app-contact-list
+      [contacts]="contacts"
+      (editContact)="onEditContact($event)"
+    ></app-contact-list>
+  `,
+  props: {
+    contacts: [
+      // Add some test contacts here to display in the list
+      {
+        fullName: 'John Doe',
+        email: 'john.doe@example.com',
+        phone: '1234567890',
+        username: 'johnny',
+        avatar :''
+      },
+      // Add more test contacts if needed
+    ],
+    onEditContact: action('editContact'),
+  },
+});
+
+// Add more stories for other actions (addContact, deleteContact) if needed
+*/

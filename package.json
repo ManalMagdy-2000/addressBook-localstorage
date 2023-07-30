@@ -34,6 +34,7 @@
     "@angular/cli": "~16.1.0",
     "@angular/compiler-cli": "^16.1.0",
     "@compodoc/compodoc": "^1.1.21",
+    "@storybook/addon-controls": "^7.1.1",
     "@storybook/addon-essentials": "^7.0.27",
     "@storybook/addon-interactions": "^7.0.27",
     "@storybook/addon-links": "^7.0.27",

@@ -230,19 +230,11 @@
                 "line": 9
             },
             "type": "injectable"
-        }
-    ],
-    "guards": [],
-    "interceptors": [],
-    "classes": [
+        },
         {
-            "name": "ContactServiceMock",
-            "id": "class-ContactServiceMock-699a0171a3b738df7355b0dd7f8ab51da40b26430ad94ce98f0d8a0cd3d2a228d280ea07cfe12124fc18e8316fc127460f5dbc4a20b9e18c25b13fe2f66fc243",
-            "file": "src/stories/contact-form.stories.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "class",
-            "sourceCode": "import { moduleMetadata, StoryFn, Meta } from '@storybook/angular';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { CommonModule } from '@angular/common';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\r\nimport { ContactFormComponent } from 'src/app/contact-form/contact-form.component';\r\nimport { ContactService } from 'src/app/services/contact.service';\r\nimport { Contact } from 'src/app/models/contact';\r\n\r\n// Mock service for testing in Storybook\r\nclass ContactServiceMock {\r\n  contacts: Contact[] = [];\r\n\r\n  getContacts(): Contact[] {\r\n    return this.contacts;\r\n  }\r\n\r\n  addContact(contact: Contact): void {\r\n    this.contacts.push(contact);\r\n  }\r\n\r\n  updateContact(updatedContact: Contact): void {\r\n    const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n    if (index !== -1) {\r\n      this.contacts[index] = updatedContact;\r\n    }\r\n  }\r\n\r\n  deleteContact(contact: Contact): void {\r\n    const index = this.contacts.indexOf(contact);\r\n    if (index !== -1) {\r\n      this.contacts.splice(index, 1);\r\n    }\r\n  }\r\n}\r\n\r\nexport default {\r\n  title: 'Contact Form',\r\n  component: ContactFormComponent,\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonModule,\r\n        FormsModule,\r\n        MatInputModule,\r\n        MatFormFieldModule,\r\n        MatIconModule,\r\n        MatButtonModule,\r\n        MatDialogModule\r\n      ],\r\n      providers: [\r\n        { provide: MatDialogRef, useValue: {} },\r\n        { provide: MAT_DIALOG_DATA, useValue: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false } },\r\n        { provide: ContactService, useClass: ContactServiceMock } // Use the mock service in Storybook\r\n      ],\r\n      declarations: [ContactFormComponent]\r\n    })\r\n  ]\r\n} as Meta;\r\n\r\nconst Template: StoryFn<ContactFormComponent> = (args) => ({\r\n  component: ContactFormComponent,\r\n  props: args\r\n});\r\n\r\nexport const AddContact = Template.bind({});\r\nAddContact.args = {\r\n  data: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false }\r\n};\r\n\r\nexport const EditContact = Template.bind({});\r\nEditContact.args = {\r\n  data: {\r\n    contact: {\r\n      fullName: 'John Doe',\r\n      email: 'johndoe@example.com',\r\n      phone: '123-456-7890',\r\n      username: 'johndoe123',\r\n      avatar: 'https://example.com/avatar1.jpg'\r\n    },\r\n    isEdit: true\r\n  }\r\n};\r\n/*\r\nexport const SubmitContactForm = Template.bind({});\r\nSubmitContactForm.args = {\r\n  data: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false }\r\n};\r\nSubmitContactForm.decorators = [\r\n  {\r\n    template: `\r\n      <form (ngSubmit)=\"onSubmit()\">\r\n        <app-contact-form [data]=\"data\"></app-contact-form>\r\n        <button type=\"submit\">Submit Form</button>\r\n      </form>\r\n    `,\r\n  },\r\n];\r\nSubmitContactForm.argTypes = {\r\n  data: { table: { disable: true } }, // Hide data from the controls table\r\n  onSubmit: { action: 'onSubmit' }, // Define the action to simulate the onSubmit method call\r\n};\r\n*/\r\n\r\n",
+            "name": "MockContactService",
+            "id": "injectable-MockContactService-e221f70e99cb9348745ecc9721ba96c8d1a3420719e84572436b3e4cae2048d0ddf196dc92c6f65165ef0e4f984761766964864250d5dae1c7ccf9901033f2f1",
+            "file": "src/stories/contact.service.mock.ts",
             "properties": [
                 {
                     "name": "contacts",
@@ -252,7 +244,10 @@
                     "type": "Contact[]",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 7,
+                    "modifierKind": [
+                        121
+                    ]
                 }
             ],
             "methods": [
@@ -261,6 +256,72 @@
                     "args": [
                         {
                             "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 19,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "deleteContact",
+                    "args": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 30,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getContacts",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Contact[]",
+                    "typeParameters": [],
+                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "updateContact",
+                    "args": [
+                        {
+                            "name": "updatedContact",
                             "type": "Contact",
                             "deprecated": false,
                             "deprecationMessage": ""
@@ -274,72 +335,6 @@
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
-                            "name": "contact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "deleteContact",
-                    "args": [
-                        {
-                            "name": "contact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 34,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "contact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "getContacts",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "Contact[]",
-                    "typeParameters": [],
-                    "line": 19,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "updateContact",
-                    "args": [
-                        {
-                            "name": "updatedContact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 27,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
                             "name": "updatedContact",
                             "type": "Contact",
                             "deprecated": false,
@@ -351,138 +346,25 @@
                     ]
                 }
             ],
-            "indexSignatures": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "hostBindings": [],
-            "hostListeners": []
-        },
-        {
-            "name": "ContactServiceMock",
-            "id": "class-ContactServiceMock-0073bbd146a9a812f1af6afba26f3190271f2647b2645156952195a6ce0197e0aa1bd6d527a578c449e6d729888589c7ed7d4e4f189692139b2430ec00b96d17-1",
-            "file": "src/stories/contact.service.mock.ts",
             "deprecated": false,
             "deprecationMessage": "",
-            "type": "class",
-            "sourceCode": "import { Contact } from 'src/app/models/contact';\r\n\r\n// Mock service for testing in Storybook\r\nexport class ContactServiceMock {\r\n  contacts: Contact[] = [];\r\n\r\n  getContacts(): Contact[] {\r\n    return this.contacts;\r\n  }\r\n\r\n  addContact(contact: Contact): void {\r\n    this.contacts.push(contact);\r\n  }\r\n\r\n  updateContact(updatedContact: Contact): void {\r\n    const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n    if (index !== -1) {\r\n      this.contacts[index] = updatedContact;\r\n    }\r\n  }\r\n\r\n  deleteContact(contact: Contact): void {\r\n    const index = this.contacts.indexOf(contact);\r\n    if (index !== -1) {\r\n      this.contacts.splice(index, 1);\r\n    }\r\n  }\r\n}\r\n",
-            "properties": [
-                {
-                    "name": "contacts",
-                    "defaultValue": "[]",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Contact[]",
-                    "optional": false,
-                    "description": "",
-                    "line": 7
-                }
-            ],
-            "methods": [
-                {
-                    "name": "addContact",
-                    "args": [
-                        {
-                            "name": "contact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 13,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "contact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "deleteContact",
-                    "args": [
-                        {
-                            "name": "contact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 24,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "contact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "getContacts",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "Contact[]",
-                    "typeParameters": [],
-                    "line": 9,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "updateContact",
-                    "args": [
-                        {
-                            "name": "updatedContact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 17,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "updatedContact",
-                            "type": "Contact",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "indexSignatures": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "hostBindings": [],
-            "hostListeners": [],
-            "isDuplicate": true,
-            "duplicateId": 1,
-            "duplicateName": "ContactServiceMock-1"
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Contact } from 'src/app/models/contact';\r\n\r\n@Injectable()\r\nexport class MockContactService {\r\n  //here I replaced my local storage in actual service  to array of contacts\r\n  private contacts: Contact[] = [];\r\n  constructor() {\r\n    this.contacts = [\r\n      { username: 'JohnDoe', email: 'john@example.com', phone: '1234567890' , fullName :\"Jone Doe\" , avatar:''},\r\n      { username: 'JaneSmith', email: 'jane@example.com', phone: '9876543210' ,fullName :\"Jane Doe\" , avatar:'' },\r\n    ];\r\n  }\r\n\r\n  getContacts(): Contact[] {\r\n    return this.contacts;\r\n  }\r\n\r\n  addContact(contact: Contact): void {\r\n    this.contacts.push(contact);\r\n  }\r\n\r\n  updateContact(updatedContact: Contact): void {\r\n    const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n    if (index !== -1) {\r\n      this.contacts[index] = updatedContact;\r\n    }\r\n  }\r\n\r\n  deleteContact(contact: Contact): void {\r\n    const index = this.contacts.indexOf(contact);\r\n    if (index !== -1) {\r\n      this.contacts.splice(index, 1);\r\n    }\r\n  }\r\n}\r\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 7
+            },
+            "type": "injectable"
         }
     ],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
     "directives": [],
     "components": [
         {
@@ -1343,7 +1225,7 @@
         },
         {
             "name": "PageComponent",
-            "id": "component-PageComponent-65ac8f4d96f3d447fcc29e2616666b0b362372cb976d10a41ae9bd2db64613ce5e69356d9548c49510c5b2df2826dfe04eed6119a7513d6148781725511fb52c",
+            "id": "component-PageComponent-88e1ae7a32b4073d1229616e913b74fd832bc6c908f86f66bc39fbd3ab52300ca68fa3a045d86a42167a2d05aa525de97ca218b99aebb5de083fce1f6150e1b1",
             "file": "src/stories/page.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1355,7 +1237,7 @@
                 "./page.css"
             ],
             "styles": [],
-            "template": "<article>    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section class=\"storybook-page\">\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>",
+            "template": "<article>    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section class=\"storybook-page\">\n      <h2>Pages  Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        proces[fxShow.xs]=\"\" with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1414,7 +1296,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport type { User } from './User';\r\n\r\n@Component({\r\n  selector: 'storybook-page',\r\n  template: `<article>\r\n    <storybook-header\r\n      [user]=\"user\"\r\n      (onLogout)=\"doLogout()\"\r\n      (onLogin)=\"doLogin()\"\r\n      (onCreateAccount)=\"doCreateAccount()\"\r\n    ></storybook-header>\r\n    <section class=\"storybook-page\">\r\n      <h2>Pages in Storybook</h2>\r\n      <p>\r\n        We recommend building UIs with a\r\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\r\n          <strong>component-driven</strong>\r\n        </a>\r\n        process starting with atomic components and ending with pages.\r\n      </p>\r\n      <p>\r\n        Render pages with mock data. This makes it easy to build and review page states without\r\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\r\n        in Storybook:\r\n      </p>\r\n      <ul>\r\n        <li>\r\n          Use a higher-level connected component. Storybook helps you compose such data from the\r\n          \"args\" of child component stories\r\n        </li>\r\n        <li>\r\n          Assemble data in the page component from your services. You can mock these services out\r\n          using Storybook.\r\n        </li>\r\n      </ul>\r\n      <p>\r\n        Get a guided tutorial on component-driven development at\r\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\r\n          Storybook tutorials\r\n        </a>\r\n        . Read more in the\r\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\r\n        .\r\n      </p>\r\n      <div class=\"tip-wrapper\">\r\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\r\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <g fill=\"none\" fillRule=\"evenodd\">\r\n            <path\r\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\r\n              id=\"a\"\r\n              fill=\"#999\"\r\n            />\r\n          </g>\r\n        </svg>\r\n        Viewports addon in the toolbar\r\n      </div>\r\n    </section>\r\n  </article>`,\r\n  styleUrls: ['./page.css'],\r\n})\r\nexport default class PageComponent {\r\n  user: User | null = null;\r\n\r\n  doLogout() {\r\n    this.user = null;\r\n  }\r\n\r\n  doLogin() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n\r\n  doCreateAccount() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport type { User } from './User';\r\n\r\n@Component({\r\n  selector: 'storybook-page',\r\n  template: `<article>\r\n    <storybook-header\r\n      [user]=\"user\"\r\n      (onLogout)=\"doLogout()\"\r\n      (onLogin)=\"doLogin()\"\r\n      (onCreateAccount)=\"doCreateAccount()\"\r\n    ></storybook-header>\r\n    <section class=\"storybook-page\">\r\n      <h2>Pages  Storybook</h2>\r\n      <p>\r\n        We recommend building UIs with a\r\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\r\n          <strong>component-driven</strong>\r\n        </a>\r\n        proces[fxShow.xs]=\"\" with atomic components and ending with pages.\r\n      </p>\r\n      <p>\r\n        Render pages with mock data. This makes it easy to build and review page states without\r\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\r\n        in Storybook:\r\n      </p>\r\n      <ul>\r\n        <li>\r\n          Use a higher-level connected component. Storybook helps you compose such data from the\r\n          \"args\" of child component stories\r\n        </li>\r\n        <li>\r\n          Assemble data in the page component from your services. You can mock these services out\r\n          using Storybook.\r\n        </li>\r\n      </ul>\r\n      <p>\r\n        Get a guided tutorial on component-driven development at\r\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\r\n          Storybook tutorials\r\n        </a>\r\n        . Read more in the\r\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\r\n        .\r\n      </p>\r\n      <div class=\"tip-wrapper\">\r\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\r\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\r\n          <g fill=\"none\" fillRule=\"evenodd\">\r\n            <path\r\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\r\n              id=\"a\"\r\n              fill=\"#999\"\r\n            />\r\n          </g>\r\n        </svg>\r\n        Viewports addon in the toolbar\r\n      </div>\r\n    </section>\r\n  </article>`,\r\n  styleUrls: ['./page.css'],\r\n})\r\nexport default class PageComponent {\r\n  user: User | null = null;\r\n\r\n  doLogout() {\r\n    this.user = null;\r\n  }\r\n\r\n  doLogin() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n\r\n  doCreateAccount() {\r\n    this.user = { name: 'Jane Doe' };\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1532,27 +1414,27 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/stories/confirmation-dialog.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "() => ({\r\n  template: `\r\n    <app-confirmation-dialog></app-confirmation-dialog>\r\n  `,\r\n})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/stories/contact-list.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "Template.bind({})"
+                "defaultValue": "() => ({\r\n  template: `\r\n    <app-contact-list [contacts]=\"contacts\"></app-contact-list>\r\n  `,\r\n})"
             },
             {
                 "name": "EditContact",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/contact-form.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "EmptyList",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/stories/contact-list.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -1689,14 +1571,14 @@
                 "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args\r\n})"
             },
             {
-                "name": "Template",
+                "name": "WithContacts",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/contact-list.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<ContactListComponent>",
-                "defaultValue": "(args) => ({\r\n  component: ContactListComponent,\r\n  props: args,\r\n})"
+                "type": "",
+                "defaultValue": "() => ({\r\n  template: `\r\n    <app-contact-list [contacts]=\"contacts\"></app-contact-list>\r\n  `,\r\n  props: {\r\n    contacts: [\r\n      // Add some test contacts here to display in the list\r\n      {\r\n        fullName: 'John Doe',\r\n        email: 'john.doe@example.com',\r\n        phone: '1234567890',\r\n        username: 'johnny',\r\n      },\r\n      // Add more test contacts if needed\r\n    ],\r\n  },\r\n})"
             }
         ],
         "functions": [],
@@ -1769,6 +1651,18 @@
                     "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args\r\n})"
                 }
             ],
+            "src/stories/confirmation-dialog.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/confirmation-dialog.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  template: `\r\n    <app-confirmation-dialog></app-confirmation-dialog>\r\n  `,\r\n})"
+                }
+            ],
             "src/stories/contact-list.stories.ts": [
                 {
                     "name": "Default",
@@ -1778,27 +1672,17 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "Template.bind({})"
+                    "defaultValue": "() => ({\r\n  template: `\r\n    <app-contact-list [contacts]=\"contacts\"></app-contact-list>\r\n  `,\r\n})"
                 },
                 {
-                    "name": "EmptyList",
+                    "name": "WithContacts",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/stories/contact-list.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/contact-list.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<ContactListComponent>",
-                    "defaultValue": "(args) => ({\r\n  component: ContactListComponent,\r\n  props: args,\r\n})"
+                    "defaultValue": "() => ({\r\n  template: `\r\n    <app-contact-list [contacts]=\"contacts\"></app-contact-list>\r\n  `,\r\n  props: {\r\n    contacts: [\r\n      // Add some test contacts here to display in the list\r\n      {\r\n        fullName: 'John Doe',\r\n        email: 'john.doe@example.com',\r\n        phone: '1234567890',\r\n        username: 'johnny',\r\n      },\r\n      // Add more test contacts if needed\r\n    ],\r\n  },\r\n})"
                 }
             ],
             "src/stories/Button.stories.ts": [
@@ -2202,12 +2086,13 @@
                 "status": "very-good"
             },
             {
-                "filePath": "src/stories/contact-form.stories.ts",
-                "type": "class",
-                "linktype": "classe",
-                "name": "ContactServiceMock",
+                "filePath": "src/stories/confirmation-dialog.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -2255,28 +2140,18 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "EmptyList",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/stories/contact-list.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
+                "name": "WithContacts",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
                 "filePath": "src/stories/contact.service.mock.ts",
-                "type": "class",
-                "linktype": "classe",
-                "name": "ContactServiceMock",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "MockContactService",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {

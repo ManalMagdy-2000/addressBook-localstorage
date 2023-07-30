@@ -1,4 +1,3 @@
-
 import { moduleMetadata, StoryFn, Meta } from '@storybook/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -10,34 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ContactFormComponent } from 'src/app/contact-form/contact-form.component';
 import { ContactService } from 'src/app/services/contact.service';
-import { Contact } from 'src/app/models/contact';
-
-// Mock service for testing in Storybook
-class ContactServiceMock {
-  contacts: Contact[] = [];
-
-  getContacts(): Contact[] {
-    return this.contacts;
-  }
-
-  addContact(contact: Contact): void {
-    this.contacts.push(contact);
-  }
-
-  updateContact(updatedContact: Contact): void {
-    const index = this.contacts.findIndex(c => c.username === updatedContact.username);
-    if (index !== -1) {
-      this.contacts[index] = updatedContact;
-    }
-  }
-
-  deleteContact(contact: Contact): void {
-    const index = this.contacts.indexOf(contact);
-    if (index !== -1) {
-      this.contacts.splice(index, 1);
-    }
-  }
-}
+import { MockContactService } from './contact.service.mock';
 
 export default {
   title: 'Contact Form',
@@ -57,7 +29,7 @@ export default {
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false } },
-        { provide: ContactService, useClass: ContactServiceMock } // Use the mock service in Storybook
+        { provide: ContactService, useClass: MockContactService }
       ],
       declarations: [ContactFormComponent]
     })
