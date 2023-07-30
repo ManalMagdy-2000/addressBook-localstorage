@@ -11,13 +11,13 @@ import type { User } from './User';
       (onCreateAccount)="doCreateAccount()"
     ></storybook-header>
     <section class="storybook-page">
-      <h2>Pages in Storybook</h2>
+      <h2>Pages  Storybook</h2>
       <p>
         We recommend building UIs with a
         <a href="https://componentdriven.org" target="_blank" rel="noopener noreferrer">
           <strong>component-driven</strong>
         </a>
-        process starting with atomic components and ending with pages.
+        proces[fxShow.xs]="" with atomic components and ending with pages.
       </p>
       <p>
         Render pages with mock data. This makes it easy to build and review page states without
