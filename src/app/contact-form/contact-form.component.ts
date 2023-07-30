@@ -47,10 +47,8 @@ export class ContactFormComponent {
 
   onSubmit() {
     if (this.data.isEdit) {
-      // Handle edit functionality
       this.dialogRef.close(this.newContact);
     } else {
-      // Handle add functionality
       this.dialogRef.close(this.newContact);
     }
   }

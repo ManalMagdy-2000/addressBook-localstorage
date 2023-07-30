@@ -39,7 +39,7 @@ export class ContactListComponent implements OnInit {
         if (index !== -1) {
           this.contacts[index] = { ...updatedContact };
           this.contactService.updateContact(updatedContact);
-          this.retrieveContacts(); // Retrieve contacts again
+          this.retrieveContacts();
         }
       }
     });

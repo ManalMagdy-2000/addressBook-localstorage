@@ -33,8 +33,8 @@ export class ContactService {
   updateContact(updatedContact: Contact): void {
     const index = this.contacts.findIndex(c => c.username === updatedContact.username);
     if (index !== -1) {
-      this.contacts[index] = updatedContact; // Update the contact object directly
-      this.saveContactsToLocalStorage(); // Save contacts to local storage
+      this.contacts[index] = updatedContact;
+      this.saveContactsToLocalStorage();
     }
   }
 

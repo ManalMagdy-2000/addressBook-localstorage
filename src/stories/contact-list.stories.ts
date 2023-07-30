@@ -40,8 +40,14 @@ export default {
       ],
     }),
   ],
+  argTypes: {
+    onSubmit: { action: 'submit' },
+  },
 } as Meta;
-
+onSubmit: (event: any) => {
+  // This is a placeholder function for the onSubmit event
+  console.log('Form submitted:', event);
+}
 const Template: StoryFn<ContactListComponent> = (args) => ({
   component: ContactListComponent,
   props: args,
@@ -49,7 +55,7 @@ const Template: StoryFn<ContactListComponent> = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  contacts: AddContact.args.contact ? [AddContact.args.contact] : [],
+//  contacts: AddContact.args.contact ? [AddContact.args.contact] : [],
 };
 export const EmptyList = Template.bind({});
 EmptyList.args = {
@@ -61,3 +67,5 @@ EmptyList.args = {
     avatar : ''
   },
 };
+
+

@@ -76,7 +76,7 @@
     "injectables": [
         {
             "name": "ContactService",
-            "id": "injectable-ContactService-8537567c0896e0523da89a33ac8b4b4d03da5b17b36a5edd3927e49dabf6357606cdb5f66c1c07c26a8da8f16667e2891cc90980ef5573a0f69920048fc9329d",
+            "id": "injectable-ContactService-1fa080940904ff5a53528c2e5dd15182754b3baf1349eead5ab79701a63e09d0b29fd6cb0548a2ff75b1c47223e321157028f07efc5859f90f4fa4c412cca1a5",
             "file": "src/app/services/contact.service.ts",
             "properties": [
                 {
@@ -220,7 +220,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Contact } from '../models/contact';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ContactService {\r\n  localStorageKey = 'contacts';\r\n  contacts: Contact[] = [];\r\n\r\n  constructor() {\r\n    this.retrieveContactsFromLocalStorage();\r\n  }\r\n\r\n  getContacts(): Contact[] {\r\n    return this.contacts;\r\n  }\r\n\r\n  retrieveContactsFromLocalStorage(): void {\r\n    const contactsData: string | null = localStorage.getItem(this.localStorageKey);\r\n    this.contacts = contactsData !== null ? JSON.parse(contactsData) : [];\r\n  }\r\n\r\n  saveContactsToLocalStorage(): void {\r\n    localStorage.setItem(this.localStorageKey, JSON.stringify(this.contacts));\r\n  }\r\n\r\n  addContact(contact: Contact): void {\r\n    this.contacts.push(contact);\r\n    this.saveContactsToLocalStorage();\r\n  }\r\n\r\n  updateContact(updatedContact: Contact): void {\r\n    const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n    if (index !== -1) {\r\n      this.contacts[index] = updatedContact; // Update the contact object directly\r\n      this.saveContactsToLocalStorage(); // Save contacts to local storage\r\n    }\r\n  }\r\n\r\n\r\n  deleteContact(contact: Contact): void {\r\n    const index = this.contacts.indexOf(contact);\r\n    if (index !== -1) {\r\n      this.contacts.splice(index, 1);\r\n      this.saveContactsToLocalStorage();\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Contact } from '../models/contact';\r\n\r\n@Injectable({\r\n  providedIn: 'root'\r\n})\r\nexport class ContactService {\r\n  localStorageKey = 'contacts';\r\n  contacts: Contact[] = [];\r\n\r\n  constructor() {\r\n    this.retrieveContactsFromLocalStorage();\r\n  }\r\n\r\n  getContacts(): Contact[] {\r\n    return this.contacts;\r\n  }\r\n\r\n  retrieveContactsFromLocalStorage(): void {\r\n    const contactsData: string | null = localStorage.getItem(this.localStorageKey);\r\n    this.contacts = contactsData !== null ? JSON.parse(contactsData) : [];\r\n  }\r\n\r\n  saveContactsToLocalStorage(): void {\r\n    localStorage.setItem(this.localStorageKey, JSON.stringify(this.contacts));\r\n  }\r\n\r\n  addContact(contact: Contact): void {\r\n    this.contacts.push(contact);\r\n    this.saveContactsToLocalStorage();\r\n  }\r\n\r\n  updateContact(updatedContact: Contact): void {\r\n    const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n    if (index !== -1) {\r\n      this.contacts[index] = updatedContact;\r\n      this.saveContactsToLocalStorage();\r\n    }\r\n  }\r\n\r\n\r\n  deleteContact(contact: Contact): void {\r\n    const index = this.contacts.indexOf(contact);\r\n    if (index !== -1) {\r\n      this.contacts.splice(index, 1);\r\n      this.saveContactsToLocalStorage();\r\n    }\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -234,7 +234,255 @@
     ],
     "guards": [],
     "interceptors": [],
-    "classes": [],
+    "classes": [
+        {
+            "name": "ContactServiceMock",
+            "id": "class-ContactServiceMock-699a0171a3b738df7355b0dd7f8ab51da40b26430ad94ce98f0d8a0cd3d2a228d280ea07cfe12124fc18e8316fc127460f5dbc4a20b9e18c25b13fe2f66fc243",
+            "file": "src/stories/contact-form.stories.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "class",
+            "sourceCode": "import { moduleMetadata, StoryFn, Meta } from '@storybook/angular';\r\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\r\nimport { CommonModule } from '@angular/common';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { MatInputModule } from '@angular/material/input';\r\nimport { MatFormFieldModule } from '@angular/material/form-field';\r\nimport { MatIconModule } from '@angular/material/icon';\r\nimport { MatButtonModule } from '@angular/material/button';\r\nimport { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\r\nimport { ContactFormComponent } from 'src/app/contact-form/contact-form.component';\r\nimport { ContactService } from 'src/app/services/contact.service';\r\nimport { Contact } from 'src/app/models/contact';\r\n\r\n// Mock service for testing in Storybook\r\nclass ContactServiceMock {\r\n  contacts: Contact[] = [];\r\n\r\n  getContacts(): Contact[] {\r\n    return this.contacts;\r\n  }\r\n\r\n  addContact(contact: Contact): void {\r\n    this.contacts.push(contact);\r\n  }\r\n\r\n  updateContact(updatedContact: Contact): void {\r\n    const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n    if (index !== -1) {\r\n      this.contacts[index] = updatedContact;\r\n    }\r\n  }\r\n\r\n  deleteContact(contact: Contact): void {\r\n    const index = this.contacts.indexOf(contact);\r\n    if (index !== -1) {\r\n      this.contacts.splice(index, 1);\r\n    }\r\n  }\r\n}\r\n\r\nexport default {\r\n  title: 'Contact Form',\r\n  component: ContactFormComponent,\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        BrowserAnimationsModule,\r\n        CommonModule,\r\n        FormsModule,\r\n        MatInputModule,\r\n        MatFormFieldModule,\r\n        MatIconModule,\r\n        MatButtonModule,\r\n        MatDialogModule\r\n      ],\r\n      providers: [\r\n        { provide: MatDialogRef, useValue: {} },\r\n        { provide: MAT_DIALOG_DATA, useValue: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false } },\r\n        { provide: ContactService, useClass: ContactServiceMock } // Use the mock service in Storybook\r\n      ],\r\n      declarations: [ContactFormComponent]\r\n    })\r\n  ]\r\n} as Meta;\r\n\r\nconst Template: StoryFn<ContactFormComponent> = (args) => ({\r\n  component: ContactFormComponent,\r\n  props: args\r\n});\r\n\r\nexport const AddContact = Template.bind({});\r\nAddContact.args = {\r\n  data: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false }\r\n};\r\n\r\nexport const EditContact = Template.bind({});\r\nEditContact.args = {\r\n  data: {\r\n    contact: {\r\n      fullName: 'John Doe',\r\n      email: 'johndoe@example.com',\r\n      phone: '123-456-7890',\r\n      username: 'johndoe123',\r\n      avatar: 'https://example.com/avatar1.jpg'\r\n    },\r\n    isEdit: true\r\n  }\r\n};\r\n/*\r\nexport const SubmitContactForm = Template.bind({});\r\nSubmitContactForm.args = {\r\n  data: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false }\r\n};\r\nSubmitContactForm.decorators = [\r\n  {\r\n    template: `\r\n      <form (ngSubmit)=\"onSubmit()\">\r\n        <app-contact-form [data]=\"data\"></app-contact-form>\r\n        <button type=\"submit\">Submit Form</button>\r\n      </form>\r\n    `,\r\n  },\r\n];\r\nSubmitContactForm.argTypes = {\r\n  data: { table: { disable: true } }, // Hide data from the controls table\r\n  onSubmit: { action: 'onSubmit' }, // Define the action to simulate the onSubmit method call\r\n};\r\n*/\r\n\r\n",
+            "properties": [
+                {
+                    "name": "contacts",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Contact[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                }
+            ],
+            "methods": [
+                {
+                    "name": "addContact",
+                    "args": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 23,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "deleteContact",
+                    "args": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 34,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getContacts",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Contact[]",
+                    "typeParameters": [],
+                    "line": 19,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "updateContact",
+                    "args": [
+                        {
+                            "name": "updatedContact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "updatedContact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        },
+        {
+            "name": "ContactServiceMock",
+            "id": "class-ContactServiceMock-0073bbd146a9a812f1af6afba26f3190271f2647b2645156952195a6ce0197e0aa1bd6d527a578c449e6d729888589c7ed7d4e4f189692139b2430ec00b96d17-1",
+            "file": "src/stories/contact.service.mock.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "class",
+            "sourceCode": "import { Contact } from 'src/app/models/contact';\r\n\r\n// Mock service for testing in Storybook\r\nexport class ContactServiceMock {\r\n  contacts: Contact[] = [];\r\n\r\n  getContacts(): Contact[] {\r\n    return this.contacts;\r\n  }\r\n\r\n  addContact(contact: Contact): void {\r\n    this.contacts.push(contact);\r\n  }\r\n\r\n  updateContact(updatedContact: Contact): void {\r\n    const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n    if (index !== -1) {\r\n      this.contacts[index] = updatedContact;\r\n    }\r\n  }\r\n\r\n  deleteContact(contact: Contact): void {\r\n    const index = this.contacts.indexOf(contact);\r\n    if (index !== -1) {\r\n      this.contacts.splice(index, 1);\r\n    }\r\n  }\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "contacts",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Contact[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "methods": [
+                {
+                    "name": "addContact",
+                    "args": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "deleteContact",
+                    "args": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "contact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getContacts",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Contact[]",
+                    "typeParameters": [],
+                    "line": 9,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "updateContact",
+                    "args": [
+                        {
+                            "name": "updatedContact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "updatedContact",
+                            "type": "Contact",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "indexSignatures": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "ContactServiceMock-1"
+        }
+    ],
     "directives": [],
     "components": [
         {
@@ -425,7 +673,7 @@
         },
         {
             "name": "ConfirmationDialogComponent",
-            "id": "component-ConfirmationDialogComponent-17554452a5b6903d08b4e876bf9adf4a3000670d74f84c946dd90ad645f3b84b44bbfc53e7a67ad0a40689b16107e5987d0b39aab05fcc71c57969447c80dad3",
+            "id": "component-ConfirmationDialogComponent-8c2a79076b3b1eebade931c6cee788afa2712530e586d173a0ec081b781814b553d4f2c7ee6a7220ee4538c015e53c63baa1c73cb1f20af9bfd293f502ff4f1f",
             "file": "src/app/confirmation-dialog/confirmation-dialog.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -472,7 +720,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Inject } from '@angular/core';\r\nimport { MAT_DIALOG_DATA } from '@angular/material/dialog';\r\n\r\n@Component({\r\n  selector: 'app-confirmation-dialog',\r\n  template: `\r\n    <h2 mat-dialog-title>Confirmation</h2>\r\n    <mat-dialog-content>\r\n      {{ data.message }}\r\n    </mat-dialog-content>\r\n    <mat-dialog-actions>\r\n      <button mat-button [mat-dialog-close]=\"true\">Yes</button>\r\n      <button mat-button [mat-dialog-close]=\"false\">No</button>\r\n    </mat-dialog-actions>\r\n  `\r\n})\r\nexport class ConfirmationDialogComponent {\r\n  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}\r\n}\r\n",
+            "sourceCode": "import { Component, Inject } from '@angular/core';\r\nimport { MAT_DIALOG_DATA } from '@angular/material/dialog';\r\n\r\n@Component({\r\n  selector: 'app-confirmation-dialog',\r\n  template: `\r\n    <h2 mat-dialog-title>Confirmation</h2>\r\n    <mat-dialog-content>\r\n      {{ data.message }}\r\n    </mat-dialog-content> \r\n    <mat-dialog-actions>\r\n      <button mat-button [mat-dialog-close]=\"true\">Yes</button>\r\n      <button mat-button [mat-dialog-close]=\"false\">No</button>\r\n    </mat-dialog-actions>\r\n  `\r\n})\r\nexport class ConfirmationDialogComponent {\r\n  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -505,7 +753,7 @@
         },
         {
             "name": "ContactFormComponent",
-            "id": "component-ContactFormComponent-c9f33724c16b5abe03a230d999ce43baff94572c2635194681c47af30c9a0756fb9a363a059e3ee30e960b760930cfed499bb3f938900f427847809235e19838",
+            "id": "component-ContactFormComponent-44b2fb50862d700ab6286bcae136878e1dc932f55c21e0687a9e9407ca329b732b477d9551f86a657840046645772d6f8360fccd0a81a8d12b5e04a3a89f2c37",
             "file": "src/app/contact-form/contact-form.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -651,7 +899,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Inject } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { Contact } from '../models/contact';\r\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\r\n\r\n@Component({\r\n  selector: 'app-contact-form',\r\n  templateUrl: './contact-form.component.html',\r\n  styleUrls: ['./contact-form.component.css']\r\n})\r\nexport class ContactFormComponent {\r\n  newContact: Contact;\r\n  avatarPreview: string | undefined;\r\n  uniqueUsername: string | undefined;\r\n  emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;\r\n\r\n  constructor(\r\n    private dialogRef: MatDialogRef<ContactFormComponent>,\r\n    @Inject(MAT_DIALOG_DATA) public data: any\r\n  ) {\r\n    this.newContact = { ...this.data.contact };\r\n    this.generateUniqueUsername();\r\n  }\r\n\r\n  handleAvatarUpload(event: any) {\r\n    const file = event.target.files[0];\r\n    const reader = new FileReader();\r\n    reader.onload = () => {\r\n      this.avatarPreview = reader.result as string;\r\n      this.newContact.avatar = this.avatarPreview;\r\n    };\r\n    reader.readAsDataURL(file);\r\n  }\r\n\r\n  chooseAvatarFile() {\r\n    const fileInput = document.getElementById('avatar');\r\n    if (fileInput) {\r\n      fileInput.click();\r\n    }\r\n  }\r\n\r\n  generateUniqueUsername() {\r\n    const firstname = this.newContact.fullName.split(' ')[0].toLowerCase();\r\n    const randomNumber = Math.floor(Math.random() * 1000);\r\n    this.uniqueUsername = firstname + randomNumber;\r\n  }\r\n\r\n  onSubmit() {\r\n    if (this.data.isEdit) {\r\n      // Handle edit functionality\r\n      this.dialogRef.close(this.newContact);\r\n    } else {\r\n      // Handle add functionality\r\n      this.dialogRef.close(this.newContact);\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Inject } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { Contact } from '../models/contact';\r\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\r\n\r\n@Component({\r\n  selector: 'app-contact-form',\r\n  templateUrl: './contact-form.component.html',\r\n  styleUrls: ['./contact-form.component.css']\r\n})\r\nexport class ContactFormComponent {\r\n  newContact: Contact;\r\n  avatarPreview: string | undefined;\r\n  uniqueUsername: string | undefined;\r\n  emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;\r\n\r\n  constructor(\r\n    private dialogRef: MatDialogRef<ContactFormComponent>,\r\n    @Inject(MAT_DIALOG_DATA) public data: any\r\n  ) {\r\n    this.newContact = { ...this.data.contact };\r\n    this.generateUniqueUsername();\r\n  }\r\n\r\n  handleAvatarUpload(event: any) {\r\n    const file = event.target.files[0];\r\n    const reader = new FileReader();\r\n    reader.onload = () => {\r\n      this.avatarPreview = reader.result as string;\r\n      this.newContact.avatar = this.avatarPreview;\r\n    };\r\n    reader.readAsDataURL(file);\r\n  }\r\n\r\n  chooseAvatarFile() {\r\n    const fileInput = document.getElementById('avatar');\r\n    if (fileInput) {\r\n      fileInput.click();\r\n    }\r\n  }\r\n\r\n  generateUniqueUsername() {\r\n    const firstname = this.newContact.fullName.split(' ')[0].toLowerCase();\r\n    const randomNumber = Math.floor(Math.random() * 1000);\r\n    this.uniqueUsername = firstname + randomNumber;\r\n  }\r\n\r\n  onSubmit() {\r\n    if (this.data.isEdit) {\r\n      this.dialogRef.close(this.newContact);\r\n    } else {\r\n      this.dialogRef.close(this.newContact);\r\n    }\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -705,7 +953,7 @@
         },
         {
             "name": "ContactListComponent",
-            "id": "component-ContactListComponent-4da4b8eb5a495749709acc272745d3a2ae3ea3a0121751e1760a1b229036b08a6dade05ca9f1cdb6c35d256f902693e8c53c8be505ed71396a628dee9692295c",
+            "id": "component-ContactListComponent-3951fda2806b354b2d783c75c7ef4fe956f26026e7026b540bd13d21514837b6f90ac2fcd9a67dd2cf5870abad9b1832c4a7ac6df316dc4fbcdbabaffea0b115",
             "file": "src/app/contact-list/contact-list.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -843,7 +1091,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { Contact } from '../models/contact';\r\nimport { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';\r\nimport { ContactFormComponent } from '../contact-form/contact-form.component';\r\nimport { ContactService } from '../services/contact.service';\r\n\r\n@Component({\r\n  selector: 'app-contact-list',\r\n  templateUrl: './contact-list.component.html',\r\n  styleUrls: ['./contact-list.component.css']\r\n})\r\nexport class ContactListComponent implements OnInit {\r\n  contacts: Contact[] = [];\r\n  displayedColumns: string[] = ['avatar', 'fullName', 'email', 'phone', 'username', 'actions'];\r\n\r\n  constructor(private dialog: MatDialog, private contactService: ContactService) {}\r\n\r\n  ngOnInit() {\r\n    this.retrieveContacts();\r\n  }\r\n\r\n  retrieveContacts() {\r\n    this.contacts = this.contactService.getContacts().slice(); // Make a copy of the contacts array\r\n  }\r\n\r\n\r\n  editContact(contact: Contact) {\r\n    const dialogRef = this.dialog.open(ContactFormComponent, {\r\n      data: {\r\n        contact: { ...contact },\r\n        isEdit: true\r\n      }\r\n    });\r\n\r\n    dialogRef.afterClosed().subscribe(updatedContact => {\r\n      if (updatedContact) {\r\n        const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n        if (index !== -1) {\r\n          this.contacts[index] = { ...updatedContact };\r\n          this.contactService.updateContact(updatedContact);\r\n          this.retrieveContacts(); // Retrieve contacts again\r\n        }\r\n      }\r\n    });\r\n  }\r\n\r\n\r\n\r\n\r\n\r\n  addContact() {\r\n    const dialogRef = this.dialog.open(ContactFormComponent, {\r\n      data: {\r\n        contact: {\r\n          avatar: '',\r\n          phone: '',\r\n          email: '',\r\n          fullName: '',\r\n          username: ''\r\n        },\r\n        isEdit: false\r\n      }\r\n    });\r\n\r\n    dialogRef.afterClosed().subscribe(newContact => {\r\n      if (newContact) {\r\n        this.contactService.addContact(newContact);\r\n        this.retrieveContacts();\r\n      }\r\n    });\r\n  }\r\n\r\n  deleteContact(contact: Contact) {\r\n    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {\r\n      data: {\r\n        message: `Are you sure you want to delete ${contact.fullName}?`\r\n      }\r\n    });\r\n\r\n    dialogRef.afterClosed().subscribe(result => {\r\n      if (result) {\r\n        this.contactService.deleteContact(contact);\r\n        this.retrieveContacts();\r\n      }\r\n    });\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\r\nimport { MatDialog } from '@angular/material/dialog';\r\nimport { Contact } from '../models/contact';\r\nimport { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';\r\nimport { ContactFormComponent } from '../contact-form/contact-form.component';\r\nimport { ContactService } from '../services/contact.service';\r\n\r\n@Component({\r\n  selector: 'app-contact-list',\r\n  templateUrl: './contact-list.component.html',\r\n  styleUrls: ['./contact-list.component.css']\r\n})\r\nexport class ContactListComponent implements OnInit {\r\n  contacts: Contact[] = [];\r\n  displayedColumns: string[] = ['avatar', 'fullName', 'email', 'phone', 'username', 'actions'];\r\n\r\n  constructor(private dialog: MatDialog, private contactService: ContactService) {}\r\n\r\n  ngOnInit() {\r\n    this.retrieveContacts();\r\n  }\r\n\r\n  retrieveContacts() {\r\n    this.contacts = this.contactService.getContacts().slice(); // Make a copy of the contacts array\r\n  }\r\n\r\n\r\n  editContact(contact: Contact) {\r\n    const dialogRef = this.dialog.open(ContactFormComponent, {\r\n      data: {\r\n        contact: { ...contact },\r\n        isEdit: true\r\n      }\r\n    });\r\n\r\n    dialogRef.afterClosed().subscribe(updatedContact => {\r\n      if (updatedContact) {\r\n        const index = this.contacts.findIndex(c => c.username === updatedContact.username);\r\n        if (index !== -1) {\r\n          this.contacts[index] = { ...updatedContact };\r\n          this.contactService.updateContact(updatedContact);\r\n          this.retrieveContacts();\r\n        }\r\n      }\r\n    });\r\n  }\r\n\r\n\r\n\r\n\r\n\r\n  addContact() {\r\n    const dialogRef = this.dialog.open(ContactFormComponent, {\r\n      data: {\r\n        contact: {\r\n          avatar: '',\r\n          phone: '',\r\n          email: '',\r\n          fullName: '',\r\n          username: ''\r\n        },\r\n        isEdit: false\r\n      }\r\n    });\r\n\r\n    dialogRef.afterClosed().subscribe(newContact => {\r\n      if (newContact) {\r\n        this.contactService.addContact(newContact);\r\n        this.retrieveContacts();\r\n      }\r\n    });\r\n  }\r\n\r\n  deleteContact(contact: Contact) {\r\n    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {\r\n      data: {\r\n        message: `Are you sure you want to delete ${contact.fullName}?`\r\n      }\r\n    });\r\n\r\n    dialogRef.afterClosed().subscribe(result => {\r\n      if (result) {\r\n        this.contactService.deleteContact(contact);\r\n        this.retrieveContacts();\r\n      }\r\n    });\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -896,7 +1144,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<p *ngIf=\"contacts.length == 0\" style=\"text-align: center; margin-top: 5%;\">No contacts added yet</p>\r\n\r\n<div class=\"mat-table-wrapper\" *ngIf=\"contacts.length != 0\">\r\n  <table mat-table [dataSource]=\"contacts\" class=\"mat-table\">\r\n    <!-- Columns definition -->\r\n    <ng-container matColumnDef=\"avatar\">\r\n      <th mat-header-cell *matHeaderCellDef>Avatar</th>\r\n      <td mat-cell *matCellDef=\"let contact\">\r\n        <div class=\"avatar-container\">\r\n          <img *ngIf=\"contact.avatar\" [src]=\"contact.avatar\" alt=\"Avatar\" class=\"avatar-image\">\r\n          <div *ngIf=\"!contact.avatar\" class=\"default-avatar\">{{ contact.username[0] }}</div>\r\n        </div>\r\n      </td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"fullName\">\r\n      <th mat-header-cell *matHeaderCellDef>Full Name</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.fullName }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"email\">\r\n      <th mat-header-cell *matHeaderCellDef>Email</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.email }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"phone\">\r\n      <th mat-header-cell *matHeaderCellDef>Phone</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.phone }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"username\">\r\n      <th mat-header-cell *matHeaderCellDef>Username</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.username }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"actions\">\r\n      <th mat-header-cell *matHeaderCellDef>Actions</th>\r\n      <td mat-cell *matCellDef=\"let contact\">\r\n        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n          <mat-icon>more_vert</mat-icon>\r\n        </button>\r\n        <mat-menu #menu=\"matMenu\">\r\n          <button mat-menu-item (click)=\"editContact(contact)\">Edit</button>\r\n          <button mat-menu-item (click)=\"deleteContact(contact)\">Delete</button>\r\n        </mat-menu>\r\n      </td>\r\n    </ng-container>\r\n\r\n    <!-- Table rows -->\r\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n    <tr mat-row *matRowDef=\"let contact; columns: displayedColumns\"></tr>\r\n  </table>\r\n</div>\r\n\r\n<button id=\"addCon\" mat-raised-button (click)=\"addContact()\">Add Contact</button>\r\n"
+            "templateData": "<p *ngIf=\"contacts.length == 0\" style=\"text-align: center; margin-top: 5%;\">No contacts added yet</p>\r\n\r\n<div class=\"mat-table-wrapper\" *ngIf=\"contacts.length != 0\">\r\n  <table mat-table [dataSource]=\"contacts\" class=\"mat-table\">\r\n    <ng-container matColumnDef=\"avatar\">\r\n      <th mat-header-cell *matHeaderCellDef>Avatar</th>\r\n      <td mat-cell *matCellDef=\"let contact\">\r\n        <div class=\"avatar-container\">\r\n          <img *ngIf=\"contact.avatar\" [src]=\"contact.avatar\" alt=\"Avatar\" class=\"avatar-image\">\r\n          <div *ngIf=\"!contact.avatar\" class=\"default-avatar\">{{ contact.username[0] }}</div>\r\n        </div>\r\n      </td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"fullName\">\r\n      <th mat-header-cell *matHeaderCellDef>Full Name</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.fullName }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"email\">\r\n      <th mat-header-cell *matHeaderCellDef>Email</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.email }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"phone\">\r\n      <th mat-header-cell *matHeaderCellDef>Phone</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.phone }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"username\">\r\n      <th mat-header-cell *matHeaderCellDef>Username</th>\r\n      <td mat-cell *matCellDef=\"let contact\">{{ contact.username }}</td>\r\n    </ng-container>\r\n\r\n    <ng-container matColumnDef=\"actions\">\r\n      <th mat-header-cell *matHeaderCellDef>Actions</th>\r\n      <td mat-cell *matCellDef=\"let contact\">\r\n        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n          <mat-icon>more_vert</mat-icon>\r\n        </button>\r\n        <mat-menu #menu=\"matMenu\">\r\n          <button mat-menu-item (click)=\"editContact(contact)\">Edit</button>\r\n          <button mat-menu-item (click)=\"deleteContact(contact)\">Delete</button>\r\n        </mat-menu>\r\n      </td>\r\n    </ng-container>\r\n\r\n    <!-- Table rows -->\r\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\r\n    <tr mat-row *matRowDef=\"let contact; columns: displayedColumns\"></tr>\r\n  </table>\r\n</div>\r\n\r\n<button id=\"addCon\" mat-raised-button (click)=\"addContact()\">Add Contact</button>\r\n"
         },
         {
             "name": "ContactUpdateComponent",
@@ -1438,7 +1686,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<ContactFormComponent>",
-                "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args,\r\n  \r\n})"
+                "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -1518,7 +1766,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryFn<ContactFormComponent>",
-                    "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args,\r\n  \r\n})"
+                    "defaultValue": "(args) => ({\r\n  component: ContactFormComponent,\r\n  props: args\r\n})"
                 }
             ],
             "src/stories/contact-list.stories.ts": [
@@ -1955,6 +2203,15 @@
             },
             {
                 "filePath": "src/stories/contact-form.stories.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "ContactServiceMock",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/contact-form.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -2011,6 +2268,15 @@
                 "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/contact.service.mock.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "ContactServiceMock",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {

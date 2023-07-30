@@ -1,79 +1,110 @@
-import { moduleMetadata, Meta } from '@storybook/angular';
-import { StoryFn } from '@storybook/angular';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { moduleMetadata, StoryFn, Meta } from '@storybook/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContactFormComponent } from 'src/app/contact-form/contact-form.component';
-
-
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ContactFormComponent } from 'src/app/contact-form/contact-form.component';
+import { ContactService } from 'src/app/services/contact.service';
+import { Contact } from 'src/app/models/contact';
 
+// Mock service for testing in Storybook
+class ContactServiceMock {
+  contacts: Contact[] = [];
 
+  getContacts(): Contact[] {
+    return this.contacts;
+  }
+
+  addContact(contact: Contact): void {
+    this.contacts.push(contact);
+  }
+
+  updateContact(updatedContact: Contact): void {
+    const index = this.contacts.findIndex(c => c.username === updatedContact.username);
+    if (index !== -1) {
+      this.contacts[index] = updatedContact;
+    }
+  }
+
+  deleteContact(contact: Contact): void {
+    const index = this.contacts.indexOf(contact);
+    if (index !== -1) {
+      this.contacts.splice(index, 1);
+    }
+  }
+}
 
 export default {
-  title: 'Components/Contact Form',
+  title: 'Contact Form',
   component: ContactFormComponent,
   decorators: [
     moduleMetadata({
       imports: [
-        MatDialogModule,
-        BrowserAnimationsModule ,
-        BrowserModule,
         BrowserAnimationsModule,
+        CommonModule,
         FormsModule,
-        MatButtonModule,
         MatInputModule,
         MatFormFieldModule,
         MatIconModule,
-        MatMenuModule,
-        MatDialogModule,
-        MatTableModule,
+        MatButtonModule,
+        MatDialogModule
       ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: { contact: { avatar: '', phone: '', email: '', fullName: '', username: '' }, isEdit: false } },
+        { provide: MAT_DIALOG_DATA, useValue: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false } },
+        { provide: ContactService, useClass: ContactServiceMock } // Use the mock service in Storybook
       ],
-    }),
-  ],
+      declarations: [ContactFormComponent]
+    })
+  ]
 } as Meta;
 
 const Template: StoryFn<ContactFormComponent> = (args) => ({
   component: ContactFormComponent,
-  props: args,
-
+  props: args
 });
 
 export const AddContact = Template.bind({});
 AddContact.args = {
-  contact: {
-    avatar: '',
-    phone: '',
-    email: '',
-    fullName: '',
-    username: '' ,
-  },
-  isEdit: false,
-};
-
-AddContact.args = {};
-AddContact.argTypes = {
-  isEdit: {
-    control: { disable: true },
-  },
+  data: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false }
 };
 
 export const EditContact = Template.bind({});
-EditContact.args = {};
-EditContact.argTypes = {
-  isEdit: {
-    control: { disable: false },
-  },
+EditContact.args = {
+  data: {
+    contact: {
+      fullName: 'John Doe',
+      email: 'johndoe@example.com',
+      phone: '123-456-7890',
+      username: 'johndoe123',
+      avatar: 'https://example.com/avatar1.jpg'
+    },
+    isEdit: true
+  }
 };
+/*
+export const SubmitContactForm = Template.bind({});
+SubmitContactForm.args = {
+  data: { contact: { fullName: '', email: '', phone: '', username: '', avatar: '' }, isEdit: false }
+};
+SubmitContactForm.decorators = [
+  {
+    template: `
+      <form (ngSubmit)="onSubmit()">
+        <app-contact-form [data]="data"></app-contact-form>
+        <button type="submit">Submit Form</button>
+      </form>
+    `,
+  },
+];
+SubmitContactForm.argTypes = {
+  data: { table: { disable: true } }, // Hide data from the controls table
+  onSubmit: { action: 'onSubmit' }, // Define the action to simulate the onSubmit method call
+};
+*/
+
